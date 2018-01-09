@@ -36,37 +36,76 @@
       inventor.year > 1500 && inventor.year < 1600
     ));
 
+    console.log(bornInThe1500s);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
 
     const fullNames = inventors.map(inventor => (
       `${inventor.first} ${inventor.last}`
-    ))
+    ));
+    
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
-    const sorted = inventors.sort(inventor)
+    const sorted = inventors.sort(function (x, y) {
+      return x.year - y.year
+    });
+    
+    console.log(sorted);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
-    const yearsLived = inventors.reduce( (total, inventor) => (
-      total + (inventor.passed - inventor.year)
-    ))
+    const yearsLived = inventors.reduce( (total, inventor) =>
+      total + (inventor.passed - inventor.year), 0
+    );
+    
+    console.log(yearsLived);
 
     // 5. Sort the inventors by years lived
+
+    const sortedByLongevity = inventors.sort(function (x, y) {
+      return (x.passed - x.year) - (y.passed - y.year)
+    });
+    
+    console.log(sortedByLongevity);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    const list = document.querySelector('.mw-category');
+    const links = Array.from(list.querySelectorAll('a'));
+    const de = links
+                    .map(link => link.textContent)
+                    .filter(streetName => streetName.includes('de'));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const sortedByLastName = people.sort();
+    
+    console.log(sortedByLastName);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const counterHash = () => {
+      let counterHash = {};
+      data.forEach(datum => {
+        if (counterHash[datum]) {
+          counterHash[datum] += 1;
+        } else {
+          counterHash[datum] = 1;
+        }
+      });
+      return counterHash;
+    }
+    
+    console.log(counterHash());
 
   </script>
 </body>
